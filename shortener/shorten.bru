@@ -1,0 +1,31 @@
+meta {
+  name: shorten
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/shorten
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "original_url": "https://github.com/The-EpaG/URL-Shortener"
+  }
+}
+
+script:post-response {
+  let id = res.getBody().id;
+  
+  bru.setEnvVar("id", id);
+}
+
+settings {
+  encodeUrl: true
+}
